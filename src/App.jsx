@@ -1,11 +1,15 @@
-
+import { useState } from 'react';
+import LandingPage from "./pages/LandingPage";
 
 function App() {
-
+  const [theme, setTheme] = useState(true);
+  const handleThemeChange = () => {
+    setTheme(!theme);
+  }
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1> 
+    <div className={theme&&"dark"||""}>
+      <LandingPage theme={theme} toggleTheme={handleThemeChange}/>
+    </div>
   )
 }
 
