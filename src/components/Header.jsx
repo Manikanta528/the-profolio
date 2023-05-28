@@ -37,8 +37,8 @@ const Header = (props) => {
           className="block sm:hidden pl-6"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M2 46.5C0.895431 46.5 0 45.6046 0 44.5L0 2C0 0.89543 0.895431 0 2 0L19 0C24.596 0.449763 27.2634 1.3781 31 4.5C34.537 7.45508 34.9619 14.6717 34.9973 15.4344C34.9994 15.481 34.9991 15.5244 34.9974 15.571C34.7884 21.083 33.8301 23.4144 31 26.5C27.0763 30.03 24.5261 31.2866 19 31.5H12C10.8954 31.5 10 32.3954 10 33.5V44.5C10 45.6046 9.10457 46.5 8 46.5H2ZM18 23C21.866 23 25 19.866 25 16C25 12.134 21.866 9.00002 18 9.00002C13.7634 9.00002 12.0111 8.75159 11.3191 9.49294C10.6227 10.239 11 11.9874 11 16C11 20 10.75 21.75 11.5 22.5C12.25 23.25 14 23 18 23Z"
             fill="url(#paint0_linear_3_46)"
           />
@@ -51,8 +51,8 @@ const Header = (props) => {
               y2="-8.5"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#4FD1C5" />
-              <stop offset="0.965234" stop-color="#4FD1C5" stop-opacity="0" />
+              <stop stopColor="#4FD1C5" />
+              <stop offset="0.965234" stopColor="#4FD1C5" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
