@@ -14,7 +14,7 @@ function LandingPage(props) {
 
   return (
     <div className="font-inter h-fit bg-background dark:bg-backgroundDark bg-hero bg-auto bg-no-repeat bg-center ">
-      <Header toggleTheme={toggleTheme} theme={theme}/>
+      <Header toggleTheme={toggleTheme} theme={theme} flagSignIn={true}/>
       <main className='h-screen px-6 md:px-16 flex flex-col items-center'>
         <h1 className='text-3xl pt-24 select-none text-textPrimary sm:text-4xl w-full xl:w-4/5 lg:text-6xl font-bold text-center dark:text-textPrimaryDark '>Craft a Captivating Portfolio to Showcase <span className='text-primary'>Your Skills.</span></h1>
         <p className='text-xs pt-10 text-textSecondary sm:text-base w-full xl:w-3/5  text-center dark:text-textSecondaryDark'>Connect. Collaborate. Create: Find User Projects to Elevate Your Portfolio&apos;s Impact. Engage with a vibrant community of creators, discover exciting projects that align with your interests, and amplify the impact of your portfolio by joining forces with like-minded individuals.</p>
