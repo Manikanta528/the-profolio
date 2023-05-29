@@ -124,7 +124,7 @@ const Header = (props) => {
           >
             <FaGithub size={18} />
           </a>
-          {!flagSignIn && (
+          {flagSignIn && (
             <button className="text-sm" onClick={authRedirect}>
               {" "}
               Sign in
@@ -222,7 +222,7 @@ const Header = (props) => {
               <FaGithub size={18} className="inline" />
               <span> Contribute</span>
             </a>
-            {!flagSignIn && (
+            {flagSignIn && (
               <div className="p-2 rounded hover:bg-slate-500/20 flex items-center gap-4">
                 <FaSignInAlt className="inline" />{" "}
                 <button className="inline text-sm  " onClick={authRedirect}>
