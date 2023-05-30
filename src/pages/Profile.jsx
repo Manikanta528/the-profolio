@@ -55,6 +55,7 @@ function Profile(props) {
   const [github, setGithub] = useState("");
   const [inputSkill, setInputSkill] = useState("");
   const [skills, setSkills] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const onChangeSkills = (e) => {
     const { value } = e.target;
@@ -220,11 +221,55 @@ function Profile(props) {
     );
     setProfileEdit(false);
   };
+  const validateForm = () => {
+    const newErrors = {};
 
+    if (name.trim() === '') {
+      newErrors.name = 'Name is required';
+    } else if (name.length > 40) {
+      newErrors.name = 'Name must be less than 40 characters';
+    }
+
+    if (title.trim() === '') {
+      newErrors.title = 'Title is required';
+    } else if (title.length > 40) {
+      newErrors.title = 'Title must be less than 40 characters';
+    }
+
+    if (bio.trim() === '') {
+      newErrors.biography = 'Biography is required';
+    } else if (bio.length > 1024) {
+      newErrors.biography = 'Biography must be less than 1024 characters';
+    }
+
+    if (twitter.trim() === '') {
+      newErrors.twitter = 'Twitter is required';
+    } else if (twitter.length > 15) {
+      newErrors.twitter = 'Twitter must be less than 15 characters';
+    }
+
+    if (github.trim() === '') {
+      newErrors.github = 'Github is required';
+    } else if (github.length > 39) {
+      newErrors.github = 'Github must be less than 39 characters';
+    }
+
+    if (skills.length < 3) {
+      newErrors.skills = 'At least 3 skills are required';
+    } 
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
   // handle profile submit
   const handleProfile = (e) => {
     e.preventDefault();
     //console.log(name,title,bio,twitter,github,skills);
+    if (!validateForm()){
+      
+       return;
+    }
     const accountDetails = account.get();
     accountDetails.then(
       function (response) {
@@ -237,6 +282,8 @@ function Profile(props) {
           }
         });
         setProfileEdit(false);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       },
       function (error) {
         console.log(error); // Failure
@@ -330,7 +377,7 @@ function Profile(props) {
   }, []);
 
   return (
-    <div className="dark:bg-hero bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark">
+    <div className=" bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark">
       <Header
         toggleTheme={toggleTheme}
         theme={theme}
@@ -344,7 +391,9 @@ function Profile(props) {
           {popUp === 2 && <PopUp msg="Successfully, Profile Created" />}
           {profileEdit && (
             <div className="flex items-center flex-col">
+              
               <h1 className="font-bold text-xl lg:text-2xl mb-4 text-textPrimary dark:text-textPrimaryDark text-center mt-4">Edit Profile</h1>
+             
               <form onSubmit={handleProfile} className="mt-10 lg:w-3/5" >
               <div className="flex flex-col  gap-4  mt-4">
                 <label htmlFor="name" className=" font-bold">Name <sup className="text-red-500">*</sup> </label>
@@ -356,7 +405,8 @@ function Profile(props) {
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
+                  maxLength="40"
+                  
                 />
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">40 characters allowed.</sup>
@@ -371,7 +421,7 @@ function Profile(props) {
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  required
+                  
                 />
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">40 characters allowed.</sup>
@@ -384,7 +434,7 @@ function Profile(props) {
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  required
+                  
                 />
                 </div>
                 <sup className=" text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">1024 characters allowed.</sup>
@@ -452,7 +502,15 @@ function Profile(props) {
                     />
                     </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">file upload might take 2-3 hrs to reflect in profile.</sup>
-          
+                {
+                Object.keys(errors).length > 0 && (
+                  <div className="text-red-500 text-xs">
+                    {Object.values(errors).map((value) => (
+                      <li key={value}>{value}</li>
+                    ))}
+                  </div>
+                )
+              }
                 <br/>
                 <button type="submit" className="text-textPrimaryDark my-4  border-none  font-bold px-6 py-3  rounded bg-primary hover:text-textPrimary hover:bg-primary/90 hover:border-primary/50 text-xs md:text-base hover:shadow-lg">
                   Save Changes
@@ -480,7 +538,7 @@ function Profile(props) {
                   <div className="flex gap-4">
                     {!profileEdit && (
                       <button
-                        className="text-textPrimary dark:text-textPrimaryDark bg-background dark:bg-backgroundDark border-2 px-4 py-2 md:px-2 md:py-1 rounded hover:bg-primary/50 hover:border-primary/50 text-xs md:text-base hover:shadow-lg"
+                        className="text-textPrimary dark:text-textPrimaryDark  border-2 px-4 py-2 md:px-2 md:py-1 rounded hover:bg-primary/50 hover:border-primary/50 text-xs md:text-base hover:shadow-lg"
                         onClick={handleEditProfile}
                       >
                         Edit Profile
