@@ -45,16 +45,18 @@ function Profile(props) {
     setProfileEdit(!profileEdit);
   };
 
-  // Profile Creation and updation of user data
+  // Profile Creation and updating of user data
   const [profilePic, setProfilePic] = useState([false,'']); 
   const [img, setImg] = useState();
-  const [name, setName] = useState("");
-  const [title, setTitle] = useState("");
-  const [bio, setBio] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [github, setGithub] = useState("");
   const [inputSkill, setInputSkill] = useState("");
-  const [skills, setSkills] = useState([]);
+  const [profile, setProfile] = useState({
+    name: "",
+    title: "",
+    bio: "",
+    twitter: "",
+    github: "",
+    skills: [],
+  });
   const [errors, setErrors] = useState({});
 
   const onChangeSkills = (e) => {
@@ -66,16 +68,16 @@ function Profile(props) {
     const { key } = e;
     const trimmedInput = inputSkill.trim();
 
-    if (key === "," && trimmedInput.length && !skills.includes(trimmedInput)) {
+    if (key === "," && trimmedInput.length && !profile.skills.includes(trimmedInput)) {
       e.preventDefault();
-      setSkills((prevState) => [...prevState, trimmedInput]);
+      handleFormChange("skills",[...profile.skills, trimmedInput]);
       setInputSkill("");
     }
   };
 
   const handleSkillDelete = (skill) => {
-    const filteredSkills = skills.filter((item) => skill != item);
-    setSkills(filteredSkills);
+    const filteredSkills = profile.skills.filter((item) => skill != item);
+    handleFormChange("skills",filteredSkills);
   };
 
   // updating profile in database and creating profile if not exists
@@ -85,14 +87,7 @@ function Profile(props) {
       import.meta.env.VITE_DATABASE_ID,
       import.meta.env.VITE_USER_DETAILS_COLLECTION_ID,
       id,
-      {
-        name: name,
-        title: title,
-        bio: bio,
-        twitter: twitter,
-        github: github,
-        skills: skills,
-      }
+      profile
     );
 
     if (img) {
@@ -159,16 +154,10 @@ function Profile(props) {
       import.meta.env.VITE_DATABASE_ID,
       import.meta.env.VITE_USER_DETAILS_COLLECTION_ID,
       id,
-      {
-        name: name,
-        title: title,
-        bio: bio,
-        twitter: twitter,
-        github: github,
-        skills: skills,
-      }
+      profile
     );
     if (img) {
+      console.log(img);
       userProfilePicExists(id).then((exists) => {
         if(exists){
           const promise2 = storage.deleteFile(
@@ -223,7 +212,7 @@ function Profile(props) {
   };
   const validateForm = () => {
     const newErrors = {};
-
+    const { name, title, bio, twitter, github, skills } = profile;
     if (name.trim() === '') {
       newErrors.name = 'Name is required';
     } else if (name.length > 40) {
@@ -328,6 +317,12 @@ function Profile(props) {
         return false;
       });
   };
+  const handleFormChange = (field,value) => {
+    setProfile((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }));
+  }
 
   useEffect(() => {
     const userData = account.get();
@@ -340,17 +335,19 @@ function Profile(props) {
             const promise = databases.getDocument(
               import.meta.env.VITE_DATABASE_ID,
               import.meta.env.VITE_USER_DETAILS_COLLECTION_ID,
-              response.$id
+              response.$id  
             );
             promise.then(
               function (response) {
-                //console.log(response);
-                setName(response.name);
-                setTitle(response.title);
-                setBio(response.bio);
-                setTwitter(response.twitter);
-                setGithub(response.github);
-                setSkills(response.skills);
+                const { name, title, bio, twitter, github, skills } = response;
+                const profileResponse = { name, title, bio, twitter, github, skills };  
+                setProfile(profileResponse);
+                // setName(response.name);
+                // setTitle(response.title);
+                // setBio(response.bio);
+                // setTwitter(response.twitter);
+                // setGithub(response.github);
+                // setSkills(response.skills);
               },
               function (error) {
                 // Failure
@@ -377,7 +374,7 @@ function Profile(props) {
   }, []);
 
   return (
-    <div className=" bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark">
+    <div className=" bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark max-h-fit min-h-screen">
       <Header
         toggleTheme={toggleTheme}
         theme={theme}
@@ -386,7 +383,7 @@ function Profile(props) {
         currentPage={"Profile"}
       />
       <div className=" px-6 md:px-16">
-        <main className="max-h-fit min-h-screen">
+        <main >
           {popUp === 1 && <PopUp msg="Successfully, Profile Updated" />}
           {popUp === 2 && <PopUp msg="Successfully, Profile Created" />}
           {profileEdit && (
@@ -403,8 +400,8 @@ function Profile(props) {
                   placeholder="Full name"
                   id="name"
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={profile.name}
+                  onChange={(e) => handleFormChange("name",e.target.value)}
                   maxLength="40"
                   
                 />
@@ -419,8 +416,8 @@ function Profile(props) {
                   placeholder="like developer, designer, etc."
                   id="title"
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={profile.title}
+                  onChange={(e) => handleFormChange("title",e.target.value)}
                   
                 />
                 </div>
@@ -432,8 +429,8 @@ function Profile(props) {
                   placeholder="bio"
                   id="bio"
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
+                  value={profile.bio}
+                  onChange={(e) => handleFormChange("bio",e.target.value)}
                   
                 />
                 </div>
@@ -447,8 +444,8 @@ function Profile(props) {
                   placeholder="twitters user name not url"
                   id="twitter"
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                  value={twitter}
-                  onChange={(e) => setTwitter(e.target.value)}
+                  value={profile.twitter}
+                  onChange={(e) => handleFormChange("twitter",e.target.value)}
                 />
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">15 characters allowed.</sup>
@@ -461,8 +458,8 @@ function Profile(props) {
                   placeholder="user name"
                   id="Github"
                   className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                  value={github}
-                  onChange={(e) => setGithub(e.target.value)}
+                  value={profile.github}
+                  onChange={(e) => handleFormChange("github",e.target.value)}
                 />
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">39 characters allowed.</sup>
@@ -480,7 +477,7 @@ function Profile(props) {
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">add minimum 3 skills.</sup>
                 <div className="flex gap-2 flex-wrap mb-4">
-                {skills.map((skill, i) => (
+                {profile.skills.map((skill, i) => (
                     <div key={i} className="px-2 py-1 border-2 w-fit border-textPrimaryDark rounded dark dark:border-primary hover:shadow-lg flex items-center gap-4">
                       {" "}
                       <span >{skill}</span>
@@ -530,10 +527,10 @@ function Profile(props) {
                 />
                 <div className="flex flex-col items-center md:items-start  gap-3">
                   <h1 className="font-bold text-xl md:text-3xl text-textPrimary dark:text-textPrimaryDark">
-                    {name}
+                    {profile.name}
                   </h1>
                   <h3 className="text-xs md:text-xl text-textSecondary dark:text-textSecondaryDark">
-                    {title}
+                    {profile.title}
                   </h3>
                   <div className="flex gap-4">
                     {!profileEdit && (
@@ -558,13 +555,13 @@ function Profile(props) {
                 Biography
               </h1>
               <p className="text-textSecondary text-xs lg:text-base dark:text-textSecondaryDark md:text-justify py-4">
-                {bio}
+                {profile.bio}
               </p>
               <h1 className="font-bold text-xl lg:text-2xl mb-4 text-textPrimary dark:text-textPrimaryDark">
                 Skills
               </h1>
               <div className="flex flex-wrap gap-4 mb-4">
-                {skills.map((skill, i) => (
+                {profile.skills.map((skill, i) => (
                   <div
                     key={i}
                     className="inline border-2 border-textPrimaryDark/50 rounded dark dark:border-primary hover:shadow-lg"
@@ -583,21 +580,21 @@ function Profile(props) {
                   </div>
                 ))}
               </div>
-              {twitter && github && (
+              {profile.twitter && profile.github && (
                 <h1 className="font-bold text-xl md:text-2xl mb-4 text-textPrimary dark:text-textPrimaryDark">
                   Socials
                 </h1>
               )}
-              {twitter && (
+              {profile.twitter && (
                 <div className="flex items-center gap-4 mb-2 text-xs lg:text-base">
                   <BsTwitter size={18} />
-                  <a href={"http://www.twitter.com/" + twitter}>{twitter}</a>
+                  <a href={"http://www.twitter.com/" + profile.twitter}>{profile.twitter}</a>
                 </div>
               )}
-              {github && (
+              {profile.github && (
                 <div className="flex items-center gap-4 text-xs lg:text-base">
                   <BsGithub size={18} />
-                  <a href={"http://www.github.com/" + github}>{github}</a>
+                  <a href={"http://www.github.com/" + profile.github}>{profile.github}</a>
                 </div>
               )}
             </div>
