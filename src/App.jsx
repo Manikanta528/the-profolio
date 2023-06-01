@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import LandingPage from "./pages/LandingPage";
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-
-import { BrowserRouter, Route, Routes} from 'react-router-dom'
 import DiscoverPage from './pages/DiscoverPage';
 import FindPage from './pages/FindPage';
 import YourWorkPage from './pages/YourWorkPage';
+
+import { BrowserRouter, Route, Routes} from 'react-router-dom'
+import Aos from 'aos';
 
 
 
@@ -21,6 +22,10 @@ function App() {
       window.document.documentElement.classList.remove('dark');
     setTheme(!theme);
   }
+  useEffect(() => {
+    Aos.init({duration: 1000});
+  }, []);
+
   return (
     <BrowserRouter >
       <Routes >
