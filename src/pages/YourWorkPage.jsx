@@ -1,9 +1,13 @@
 import Header from "../components/Header";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
+import { account, databases, storage } from "../../utils";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import {RxCross2} from 'react-icons/rx'
+import ProjectCard from "../components/ProjectCard";
 
 function YourWorkPage(props) {
   // eslint-disable-next-line react/prop-types
@@ -16,6 +20,9 @@ function YourWorkPage(props) {
   const [inputSkill, setInputSkill] = useState("");
   const [skills, setSkills] = useState([]);
   const [repoLink, setRepoLink] = useState("");
+
+  const [projects, setProjects] = useState([]);
+  const [projectsTrigger, setProjectsTrigger] = useState(0);
 
   const handleAddWork = () => {
     setWorkToggle(!workToggle);
@@ -44,7 +51,91 @@ function YourWorkPage(props) {
 
   const handleProjectSubmit = (e) => {
     e.preventDefault();
+    const accountDetails = account.get();
+    accountDetails.then(
+      function (response) {
+        createProject(response.$id);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+    
   }
+
+  const createProject = (id) => { 
+    const promise = databases.createDocument(
+      import.meta.env.VITE_DATABASE_ID,
+      import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,
+      uuidv4(),
+      {
+        projectName : projectName,
+        description : description,
+        livePreview : livePreview,
+        repositoryLink : repoLink,
+        usedTechnology : skills,
+        userId : id,
+      }
+    );
+    promise.then(
+      function (response) {
+        setWorkToggle(false);
+        setProjectsTrigger(projectsTrigger+1);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  }
+
+  const documentsExists = (documentId) => {
+    return databases
+      .listDocuments(
+        import.meta.env.VITE_DATABASE_ID,
+        import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,
+      )
+      .then((response) => {
+        //console.log(response);
+        // console.log(response.documents.filter(item => item.$id == documentId));
+        if(response.documents.filter(item => item.userId == documentId).length > 0)
+        return true;
+        //else  return false;
+      })
+      .catch((error) => {
+        console.error(error);
+        return false;
+      });
+  };
+
+  useEffect(() => {
+    const accountDetails = account.get();
+    accountDetails.then(
+      function (response) {
+        const userId = response.$id;
+        documentsExists(response.$id).then((exists) => {
+          if(exists){
+            const promise = databases.listDocuments(
+              import.meta.env.VITE_DATABASE_ID,
+              import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,
+            );
+            promise.then(
+              function (response) {
+                const projects = response.documents.filter(item => item.userId == userId)
+                setProjects(projects);
+                console.log(projects);
+              },
+              function (error) {
+                console.log(error);
+              }
+            );
+          }
+        })
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  }, [projectsTrigger]);
 
   return (
     <div className=" bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark max-h-fit min-h-screen">
@@ -174,13 +265,24 @@ function YourWorkPage(props) {
               </div>
             </>
           ) : (
-            <>
-              <h1 className="my-10 font-bold">Your Work</h1>
-              <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-52 sm:w-64 sm:h-44 rounded-2xl flex flex-col justify-center items-center   hover:shadow-2xl">
-                <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
-                <h3 className="pt-6">Add Your Work</h3>
-              </button> 
-            </>
+            <div>
+                <h1 className="my-10 font-bold">Your Work</h1>
+              <div className="flex flex-wrap gap-8">
+                <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-52 sm:w-64 sm:h-44 rounded-2xl flex flex-col justify-center items-center  hover:shadow-2xl">
+                  <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
+                  <h3 className="pt-6">Add Your Work</h3>
+                </button> 
+              {
+                projects.length > 0 ? (
+                  projects.map((project, i) => (
+                    <ProjectCard key={i} data = {project} />
+                  ))
+                ) : (
+                  <div>add your projects</div>
+                )
+              }
+              </div>
+            </div>
             )
         }
         
