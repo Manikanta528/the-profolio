@@ -13,7 +13,7 @@ function YourWorkPage(props) {
   // eslint-disable-next-line react/prop-types
   const { toggleTheme, theme } = props;
   const [workToggle, setWorkToggle] = useState(false);
-  const [projectImg, setProjectImg] = useState("");
+  const [projectImg, setProjectImg] = useState();
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [livePreview, setLivePreview] = useState("");
@@ -64,10 +64,25 @@ function YourWorkPage(props) {
   }
 
   const createProject = (id) => { 
+    const projectId = uuidv4();
+    const storagePromise = storage.createFile(
+      import.meta.env.VITE_USER_PROJECTS_BUCKET_ID,
+      projectId,
+      projectImg
+    );
+    storagePromise.then(
+      function () {
+        console.log("File uploaded successfully");
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+
     const promise = databases.createDocument(
       import.meta.env.VITE_DATABASE_ID,
       import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,
-      uuidv4(),
+      projectId,
       {
         projectName : projectName,
         description : description,
@@ -78,7 +93,7 @@ function YourWorkPage(props) {
       }
     );
     promise.then(
-      function (response) {
+      function () {
         setWorkToggle(false);
         setProjectsTrigger(projectsTrigger+1);
       },
@@ -244,11 +259,10 @@ function YourWorkPage(props) {
                     ))}
                     </div>
                     <div className="flex flex-col gap-4 ">
-                      <label htmlFor="profilePic" className=" font-bold">Project Preview</label>
+                      <label htmlFor="profilePic" className=" font-bold">Project Preview <sup className="text-red-500">*</sup> </label>
                       <input
                         type="file"
                         className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
-                        value={projectImg}
                         onChange={(e) => {
                           console.log(e.target.files);
                           setProjectImg(e.target.files[0]);
@@ -266,7 +280,9 @@ function YourWorkPage(props) {
             </>
           ) : (
             <div>
-                <h1 className="my-10 font-bold">Your Work</h1>
+                <h1 className="mt-10 mb-2  font-bold">Your Work</h1>
+              { projects.length === 0 && <marquee className="mb-10 text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
+                </marquee>}
               <div className="flex flex-wrap gap-8">
                 <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-52 sm:w-64 sm:h-44 rounded-2xl flex flex-col justify-center items-center  hover:shadow-2xl">
                   <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
@@ -278,7 +294,7 @@ function YourWorkPage(props) {
                     <ProjectCard key={i} data = {project} />
                   ))
                 ) : (
-                  <div>add your projects</div>
+                  <br/>
                 )
               }
               </div>
