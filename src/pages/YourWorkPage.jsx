@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { v4 as uuidv4 } from "uuid";
 
 import { account, databases, storage } from "../../utils";
@@ -23,6 +24,10 @@ function YourWorkPage(props) {
 
   const [projects, setProjects] = useState([]);
   const [projectsTrigger, setProjectsTrigger] = useState(0);
+  const [errors, setErrors] = useState({});
+
+
+  const navigate = useNavigate();
 
   const handleAddWork = () => {
     setWorkToggle(!workToggle);
@@ -49,8 +54,52 @@ function YourWorkPage(props) {
     setSkills(filteredSkills);
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (projectName.trim() === '') {
+      newErrors.projectName = 'Project Name is required';
+    } else if (projectName.length > 80) {
+      newErrors.projectName = 'Project Name must be less than 80 characters';
+    }
+
+    if (description.trim() === '') {
+      newErrors.description = 'Description is required';
+    } else if (description.length < 1024) {
+      newErrors.description = 'Description must be greater than 1024 characters';
+    }else if (description.length > 2024) {
+      newErrors.description = 'Description must be lesser than 1024 characters';
+    }
+
+    if (livePreview.trim() === '') {
+      newErrors.livePreview = 'Live link is required';
+    } else if (livePreview.length > 100) {
+      newErrors.livePreview = 'Live link must be less than 100 characters';
+    }
+
+    if (repoLink.trim() === '') {
+      newErrors.repoLink = 'Repository link is required';
+    } else if (repoLink.length > 100) {
+      newErrors.repoLink = 'Repository link must be less than 100 characters';
+    }
+
+    if (skills.length < 3) {
+      newErrors.usedTechnology = 'At least 3 technology are required';
+    } 
+    if(!projectImg){
+      newErrors.projectImg = 'Project image is required';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
   const handleProjectSubmit = (e) => {
     e.preventDefault();
+    const isValid = validateForm();
+    if (!isValid) {
+      return;
+    }
     const accountDetails = account.get();
     accountDetails.then(
       function (response) {
@@ -137,7 +186,7 @@ function YourWorkPage(props) {
               function (response) {
                 const projects = response.documents.filter(item => item.userId == userId)
                 setProjects(projects);
-                console.log(projects);
+                //console.log(projects);
               },
               function (error) {
                 console.log(error);
@@ -147,7 +196,8 @@ function YourWorkPage(props) {
         })
       },
       function (error) {
-        console.log(error);
+        navigate("/login");
+        //console.log(error);
       }
     );
   }, [projectsTrigger]);
@@ -272,6 +322,15 @@ function YourWorkPage(props) {
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">file upload might take 2-3 hrs to reflect in profile.</sup>
                   
                   <br/>
+                  {
+                Object.keys(errors).length > 0 && (
+                  <div className="text-red-500 text-xs">
+                    {Object.values(errors).map((value) => (
+                      <li key={value}>{value}</li>
+                    ))}
+                  </div>
+                )
+              }
                   <button type="submit" className="text-textPrimaryDark my-4  border-none  font-bold px-6 py-3  rounded bg-primary hover:text-textPrimary hover:bg-primary/90 hover:border-primary/50 text-xs md:text-base hover:shadow-lg">
                     Add Project
                   </button>
@@ -280,11 +339,12 @@ function YourWorkPage(props) {
             </>
           ) : (
             <div>
-                <h1 className="mt-10 mb-2  font-bold">Your Work</h1>
-              { projects.length === 0 && <marquee className="mb-10 text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
-                </marquee>}
-              <div className="flex flex-wrap gap-8">
-                <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-52 sm:w-64 sm:h-44 rounded-2xl flex flex-col justify-center items-center  hover:shadow-2xl">
+                <h1 className="mt-10 mb-10  font-bold">Your Work</h1>
+              { projects.length === 0 ? <marquee className=" text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
+                </marquee> : <div className="mb-6 w-1 h-1"> </div>
+                }
+              <div className="flex flex-wrap gap-8 xl:gap-12" data-aos="zoom-in">
+                <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-64 sm:w-96  rounded-md flex flex-col justify-center items-center  hover:shadow-2xl">
                   <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
                   <h3 className="pt-6">Add Your Work</h3>
                 </button> 
