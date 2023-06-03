@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import DiscoverPage from './pages/DiscoverPage';
 import FindPage from './pages/FindPage';
 import YourWorkPage from './pages/YourWorkPage';
+import ProjectPage from './pages/ProjectPage';
 
 import { BrowserRouter, Route, Routes} from 'react-router-dom'
 import Aos from 'aos';
@@ -35,6 +36,7 @@ function App() {
         <Route path='/Discover' element={<DiscoverPage  theme={theme} toggleTheme={handleThemeChange} />}/>
         <Route path='/find' element={<FindPage  theme={theme} toggleTheme={handleThemeChange} />}/>
         <Route path='/your-work' element={<YourWorkPage  theme={theme} toggleTheme={handleThemeChange} />}/>
+        <Route path='/project-overview' element={<ProjectPage  theme={theme} toggleTheme={handleThemeChange} />}/>
       </Routes>
     </BrowserRouter>
 
