@@ -9,6 +9,11 @@ import Header from "../components/Header";
 import PopUp from "../components/PopUp";
 import { RxCross2 } from "react-icons/rx";
 import { BsGithub, BsTwitter } from "react-icons/bs";
+import { TbLogout } from "react-icons/tb";
+import { BiMessageSquareEdit } from "react-icons/bi";
+
+import 'aos/dist/aos.css';
+
 
 function Profile(props) {
   const [user, setUser] = useState(null);
@@ -227,6 +232,8 @@ function Profile(props) {
 
     if (bio.trim() === '') {
       newErrors.biography = 'Biography is required';
+    } else if (bio.length < 512) {
+      newErrors.biography = 'Biography must be greater than 512 characters';
     } else if (bio.length > 1024) {
       newErrors.biography = 'Biography must be less than 1024 characters';
     }
@@ -535,17 +542,17 @@ function Profile(props) {
                   <div className="flex gap-4">
                     {!profileEdit && (
                       <button
-                        className="text-textPrimary dark:text-textPrimaryDark  border-2 px-4 py-2 md:px-2 md:py-1 rounded hover:bg-primary/50 hover:border-primary/50 text-xs md:text-base hover:shadow-lg"
+                        className="text-textPrimary flex gap-2 items-center bg-primary/70 border-primary/70 dark:text-textPrimaryDark  border-2 px-4 py-2 md:px-4 md:py-2 rounded hover:bg-primary/50 hover:border-primary/50 text-sm  hover:shadow-lg"
                         onClick={handleEditProfile}
                       >
-                        Edit Profile
+                        <BiMessageSquareEdit/><span>Edit Profile</span>
                       </button>
                     )}
                     <button
-                      className="border-2 hover:bg-red-500/50 px-4 py-2 rounded text-textPrimary dark:text-textPrimaryDark hover:border-red-500/50 text-xs md:px-2 md:py-1 md:text-base hover:shadow-lg"
+                      className="flex items-center gap-2  border-2 px-4 py-2  rounded bg-red-500/70 border-red-500/70 text-textPrimary dark:text-textPrimaryDark hover:text-textPrimary  hover:bg-red-500/50 hover:border-red-500/50 text-sm  hover:shadow-lg"
                       onClick={logOut}
                     >
-                      Log Out
+                      <TbLogout/> <span>Log Out</span>
                     </button>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { account, databases , storage } from '../../utils';
 import { useLocation , useNavigate } from 'react-router-dom';
 
 import { BiArrowBack , BiLinkAlt , BiFolder} from 'react-icons/bi';
+import {AiOutlineDelete} from 'react-icons/ai';
 
 
 function ProjectPage() {
@@ -22,6 +23,11 @@ function ProjectPage() {
     const handleBack = () => {
       navigate("/your-work");
     }
+    const handleDeleteProject = () => {
+      databases.deleteDocument(import.meta.env.VITE_DATABASE_ID,import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,data.$id);
+      storage.deleteFile(import.meta.env.VITE_USER_PROJECTS_BUCKET_ID,data.$id);
+      navigate("/your-work");
+    }
     
   return (
     <div className='bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 max-h-fit min-h-screen'>
@@ -30,9 +36,9 @@ function ProjectPage() {
       </button>
       <div className='flex justify-between flex-wrap-reverse'>
         <div className='w-96'>
-          <h1 className='text-xl font-bold  lg:pt-0 pt-12'>{data.projectName}</h1>
-          <h3 className=' font-medium mt-8'>🕸️ STAY IN TOUCH</h3>
-          <div className='flex flex-wrap gap-4 my-8'>
+          <h1 className='text-xl font-extrabold  lg:pt-0 pt-12 mb-8'>{data.projectName}</h1>
+          <h3 className=' font-bold  mb-4'>🕸️ STAY IN TOUCH</h3>
+          <div className='flex flex-wrap gap-4 mb-8'>
             <a href={data.livePreview} target="_black">
               <button
                 className="text-textPrimary dark:text-textPrimaryDark flex items-center gap-2  border-2 px-4 py-2  rounded hover:bg-primary/50 hover:border-primary/50 text-xs  hover:shadow-lg"
@@ -46,10 +52,17 @@ function ProjectPage() {
               >
                 <BiFolder size={18}/> <span>Source Repository</span>
               </button>
+              
             </a>
+            <button
+                className="  flex items-center gap-2  border-2 px-4 py-2  rounded bg-red-500/70 border-red-500/70 text-textPrimaryDark dark:text-textPrimaryDark hover:text-textPrimary  hover:bg-red-500/50 hover:border-red-500/50 text-xs  hover:shadow-lg"
+                onClick={handleDeleteProject}
+              >
+                <AiOutlineDelete size={18}/> <span>Delete Project</span>
+              </button>
           </div>
-          <h3 className='text-lg font-bold mb-8'>🛠️ Build with</h3>
-          <div className="flex flex-wrap gap-4 mb-4">
+          <h3 className='text-lg font-bold mb-4'>🛠️ Build with</h3>
+          <div className="flex flex-wrap gap-4 mb-8">
                   {data.usedTechnology.map((skill, i) => (
                     <div
                       key={i}
@@ -75,7 +88,7 @@ function ProjectPage() {
         </div>
       </div>
       <div >
-        <h3 className='text-lg font-bold mb-8'>📝 Description</h3>
+        <h3 className='text-lg font-bold mb-4'>📝 Description</h3>
         <p className='text-textSecondary dark:text-textSecondaryDark pb-12'>{data.description}</p>
       </div>
     </div>
