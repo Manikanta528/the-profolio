@@ -28,6 +28,11 @@ export default {
       },
       backgroundImage: {
         'hero' : "url('./src/assets/main.svg')",
+        'pattern': 'radial-gradient(#4FD1C5 1px, #FFFFFF 1px)',
+        'pattern-dark': 'radial-gradient(#4FD1C5 1px, #1A202C 1px)'
+      },
+      backgroundSize :{
+        '32' : '32px 32px'
       }
 
     },

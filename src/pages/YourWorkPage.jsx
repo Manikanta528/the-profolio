@@ -211,11 +211,11 @@ function YourWorkPage(props) {
         user={true}
         currentPage={"Your Work"}
       />
-      <div className=" px-6 md:px-16">
+      <div   >
         {
           workToggle ? (
             <>
-              <div className="flex justify-between mt-10 items-center">
+              <div className="flex justify-between mt-10 items-center mx-6 md:mx-16">
                 <h1 className=" font-bold">Add Your Work</h1>
                 <button
                   className="border-2 hover:bg-red-500/50 px-4 py-2 border-textPrimary rounded text-textPrimary dark:text-textPrimaryDark hover:border-red-500/50 text-xs md:px-2 md:py-1 md:text-base hover:shadow-lg"
@@ -338,13 +338,14 @@ function YourWorkPage(props) {
               </div>
             </>
           ) : (
-            <div>
-                <h1 className="mt-10 mb-10  font-bold">Your Work</h1>
+            <div className="min-h-screen bg-pattern dark:bg-pattern-dark  bg-32">
+            <div className="mx-6 md:mx-16 " >
+                <h1 className="pt-10 pb-10  font-bold">Your Work</h1>
               { projects.length === 0 ? <marquee className=" text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
                 </marquee> : <div className="mb-6 w-1 h-1"> </div>
                 }
               <div className="flex flex-wrap gap-8 xl:gap-12">
-                <button onClick={handleAddWork} className="border-2 border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-64 sm:w-96  rounded-md flex flex-col justify-center items-center  hover:shadow-2xl">
+                <button onClick={handleAddWork} className="border-2 bg-background dark:bg-backgroundDark border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-64 sm:w-96  rounded-md flex flex-col justify-center items-center  hover:shadow-2xl">
                   <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
                   <h3 className="pt-6">Add Your Work</h3>
                 </button> 
@@ -359,11 +360,12 @@ function YourWorkPage(props) {
               }
               </div>
             </div>
+            </div>
             )
         }
         
       </div>
-    </div>
+    </div>  
   );
 }
 
