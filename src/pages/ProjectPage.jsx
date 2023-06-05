@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import {useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { account, databases , storage } from '../../utils';
+import {  databases , storage } from '../../utils';
 
 import { useLocation , useNavigate } from 'react-router-dom';
 
