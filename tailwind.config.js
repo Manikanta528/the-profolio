@@ -29,7 +29,8 @@ export default {
       backgroundImage: {
         'hero' : "url('./src/assets/main.svg')",
         'pattern': 'radial-gradient(#4FD1C5 1px, #FFFFFF 1px)',
-        'pattern-dark': 'radial-gradient(#4FD1C5 1px, #1A202C 1px)'
+        'pattern-dark': 'radial-gradient(#4FD1C5 1px, #1A202C 1px)',
+        'gif' : "url('https://media1.giphy.com/media/aRZ4vTsHnyW6A/giphy.gif?cid=ecf05e47fj6l99seux6q7jfoq0fduokey3ij1rusehcmdwdf&ep=v1_gifs_search&rid=giphy.gif&ct=g')",
       },
       backgroundSize :{
         '32' : '32px 32px'
