@@ -13,6 +13,7 @@ import { TbLogout } from "react-icons/tb";
 import { BiMessageSquareEdit } from "react-icons/bi";
 
 import 'aos/dist/aos.css';
+import Footer from "../components/Footer";
 
 
 function Profile(props) {
@@ -607,6 +608,7 @@ function Profile(props) {
             </div>
           )}
         </main>
+        <Footer/>
       </div>
     </div>
   );

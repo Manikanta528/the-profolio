@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header';
 import 'aos/dist/aos.css';
+import Footer from '../components/Footer';
 
 function LandingPage(props) {
   const {toggleTheme,theme} = props
@@ -24,6 +25,7 @@ function LandingPage(props) {
             <button className='font-bold bg-slate-400/30 rounded px-6 py-3 text-textPrimary dark:text-textPrimaryDark flex items-center gap-2' data-aos="fade-left" data-aos-anchor="#example-anchor" data-aos-offset="100" data-aos-duration="5000"><FaGithub className='inline'/> <div>GitHub</div></button>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
