@@ -13,7 +13,7 @@ function ProfileCard(props) {
 
 
     const handleViewProfile = () => {
-        navigate("/user", {state : {id}});
+        navigate("/user", {state : {data: props.data}});
     }
 
   return (
