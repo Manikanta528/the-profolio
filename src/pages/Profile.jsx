@@ -561,9 +561,9 @@ function Profile(props) {
               <h1 className="font-bold text-xl lg:text-2xl text-textPrimary dark:text-textPrimaryDark  ">
                 Biography
               </h1>
-              <p className="text-textSecondary text-xs lg:text-base dark:text-textSecondaryDark md:text-justify py-4">
+              <pre className="text-textSecondary text-xs lg:text-base dark:text-textSecondaryDark md:text-justify py-4 whitespace-pre-wrap">
                 {profile.bio}
-              </p>
+              </pre>
               <h1 className="font-bold text-xl lg:text-2xl mb-4 text-textPrimary dark:text-textPrimaryDark">
                 Skills
               </h1>

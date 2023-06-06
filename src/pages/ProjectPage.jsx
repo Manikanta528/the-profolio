@@ -19,9 +19,12 @@ function ProjectPage() {
     }, []);
     
     const data = location.state?.data;
-    //console.log(data);
+    //console.log(props);
     const handleBack = () => {
-      navigate("/your-work");
+      if(location.state?.findFlag)
+        navigate("/Find");
+      else
+        navigate("/your-work");
     }
     const handleDeleteProject = () => {
       databases.deleteDocument(import.meta.env.VITE_DATABASE_ID,import.meta.env.VITE_USER_PROJECTS_COLLECTION_ID,data.$id);
@@ -32,7 +35,7 @@ function ProjectPage() {
   return (
     <div className='bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 max-h-fit min-h-screen'>
       <button onClick={handleBack} className='py-12  flex flex-wrap items-center gap-4 hover:text-textSecondary font-medium'>
-        <BiArrowBack size={18} /> <span>Back to your work</span>
+        <BiArrowBack size={18} /> <span>Back {location.state?.findFlag ? 'to find' :'to your work'}</span>
       </button>
       <div className='flex justify-between flex-wrap-reverse'>
         <div className='w-96'>
@@ -54,12 +57,12 @@ function ProjectPage() {
               </button>
               
             </a>
-            <button
+            {location.state?.findFlag ? <></> : <button
                 className="  flex items-center gap-2  border-2 px-4 py-2  rounded bg-red-500/70 border-red-500/70 text-textPrimaryDark dark:text-textPrimaryDark hover:text-textPrimary  hover:bg-red-500/50 hover:border-red-500/50 text-xs  hover:shadow-lg"
                 onClick={handleDeleteProject}
               >
                 <AiOutlineDelete size={18}/> <span>Delete Project</span>
-              </button>
+              </button>}
           </div>
           <h3 className='text-lg font-bold mb-4'>🛠️ Build with</h3>
           <div className="flex flex-wrap gap-4 mb-8">
@@ -89,7 +92,7 @@ function ProjectPage() {
       </div>
       <div >
         <h3 className='text-lg font-bold mb-4'>📝 Description</h3>
-        <p className='text-textSecondary dark:text-textSecondaryDark pb-12'>{data.description}</p>
+        <pre className='text-textSecondary dark:text-textSecondaryDark pb-12 whitespace-pre-wrap'>{data.description}</pre>
       </div>
     </div>
   )
