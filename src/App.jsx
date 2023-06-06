@@ -15,7 +15,7 @@ import Aos from 'aos';
 
 
 function App() {
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState(false);
   
   const handleThemeChange = () => {
     if(theme)
@@ -26,6 +26,7 @@ function App() {
   }
   useEffect(() => {
     Aos.init({duration: 1000});
+    window.document.documentElement.classList.add('dark');
   }, []);
 
   return (
