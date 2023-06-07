@@ -110,7 +110,7 @@ function UsersProfile() {
                 </div>
               )}
               {github && (
-                <div className="flex items-center gap-4 text-xs lg:text-base">
+                <div className="flex items-center gap-4 text-xs lg:text-base pb-4">
                   <BsGithub size={18} />
                   <a href={"http://www.github.com/" + github}>{github}</a>
                 </div>
