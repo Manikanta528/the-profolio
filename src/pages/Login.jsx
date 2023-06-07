@@ -11,14 +11,14 @@ function Login(props) {
     const loginFlag = true;
     const handleGoogleAuth = async () => {
         try {
-            await account.createOAuth2Session('google', 'http://localhost:5173/profile', 'http://localhost:5173/');
+            await account.createOAuth2Session('google', import.meta.env.VITE_URL+'/profile', import.meta.env.VITE_URL);
         } catch (error) {
             console.log(error);
         }
     }
     const handleGithubAuth = async () =>  {
         try {
-            await account.createOAuth2Session('github', 'http://localhost:5173/profile', 'http://localhost:5173/');
+            await account.createOAuth2Session('github', import.meta.env.VITE_URL+'/profile', import.meta.env.VITE_URL);
         } catch (error) {
             console.log(error);
         }
