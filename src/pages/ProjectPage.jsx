@@ -23,6 +23,8 @@ function ProjectPage() {
     const handleBack = () => {
       if(location.state?.findFlag)
         navigate("/Find");
+      else if (location.state?.discoverFlag)
+        navigate("/Discover");
       else
         navigate("/your-work");
     }
@@ -35,7 +37,7 @@ function ProjectPage() {
   return (
     <div className='bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 max-h-fit min-h-screen'>
       <button onClick={handleBack} className='py-12  flex flex-wrap items-center gap-4 hover:text-textSecondary font-medium'>
-        <BiArrowBack size={18} /> <span>Back {location.state?.findFlag ? 'to find' :'to your work'}</span>
+        <BiArrowBack size={18} /> <span>Back {location.state?.findFlag || location.state?.discoverFlag ? location.state?.findFlag && 'to find' || location.state?.discoverFlag && 'to discover' :'to your work'}</span>
       </button>
       <div className='flex justify-between flex-wrap-reverse'>
         <div className='w-96'>
@@ -57,7 +59,7 @@ function ProjectPage() {
               </button>
               
             </a>
-            {location.state?.findFlag ? <></> : <button
+            {location.state?.findFlag || location.state?.discoverFlag ? <></> : <button
                 className="  flex items-center gap-2  border-2 px-4 py-2  rounded bg-red-500/70 border-red-500/70 text-textPrimaryDark dark:text-textPrimaryDark hover:text-textPrimary  hover:bg-red-500/50 hover:border-red-500/50 text-xs  hover:shadow-lg"
                 onClick={handleDeleteProject}
               >
