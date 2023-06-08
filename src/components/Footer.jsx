@@ -11,7 +11,10 @@ function Footer() {
           rel="noreferrer"
           className="text-primary inline-block"
         >
-          <div className="flex items-center gap-2"><SiAppwrite /> <div className="hidden sm:inline-block"> Appwrite </div></div>
+          <div className="flex items-center gap-2">
+            <SiAppwrite />{" "}
+            <div className="hidden sm:inline-block"> Appwrite </div>
+          </div>
         </a>{" "}
         +{" "}
         <a
@@ -20,7 +23,9 @@ function Footer() {
           rel="noreferrer"
           className="text-primary inline-block"
         >
-          <div className="flex items-center gap-2"><SiReact /> <div className="hidden sm:inline-block"> React </div></div>
+          <div className="flex items-center gap-2">
+            <SiReact /> <div className="hidden sm:inline-block"> React </div>
+          </div>
         </a>{" "}
         +{" "}
         <a
@@ -29,7 +34,10 @@ function Footer() {
           rel="noreferrer"
           className="text-primary inline-block"
         >
-          <div className="flex items-center gap-2"><SiTailwindcss /> <div className="hidden sm:inline-block"> Tailwind CSS </div></div>
+          <div className="flex items-center gap-2">
+            <SiTailwindcss />{" "}
+            <div className="hidden sm:inline-block"> Tailwind CSS </div>
+          </div>
         </a>
       </div>
     </div>

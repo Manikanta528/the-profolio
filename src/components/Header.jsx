@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FaGithub, FaMoon, FaSun, FaSignInAlt } from "react-icons/fa";
@@ -6,17 +7,21 @@ import { RiCompassDiscoverLine } from "react-icons/ri";
 import { HiMenu } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
-import { useState } from "react";
+
 const Header = (props) => {
   // eslint-disable-next-line react/prop-types
   const { toggleTheme, theme, flagSignIn, user, currentPage } = props;
   const navigate = useNavigate();
+
+  // to redirect to login 
   const authRedirect = () => {
     navigate("/login");
   };
   const navigation = (nav) => {
     navigate(`/${nav}`);
   };
+
+  // to toggle the menu
   const [menu, setMenu] = useState(true);
   const handleMenu = () => {
     setMenu(!menu);
@@ -109,13 +114,13 @@ const Header = (props) => {
               <FaSun size={18} />
             </div>
           )) || (
-            <div
-              className="p-2 rounded hover:bg-slate-500/20"
-              onClick={toggleTheme}
-            >
-              <FaMoon size={16} />
-            </div>
-          )}
+              <div
+                className="p-2 rounded hover:bg-slate-500/20"
+                onClick={toggleTheme}
+              >
+                <FaMoon size={16} />
+              </div>
+            )}
           <a
             className="p-2 rounded hover:bg-slate-500/20 "
             href="https://github.com/Manikanta528/the-profolio"
@@ -130,7 +135,6 @@ const Header = (props) => {
               Sign in
             </button>
           )}
-          {/* <button className='border-textPrimary border-2 rounded px-2 text-sm py-1 dark:border-textPrimaryDark hover:bg-slate-500/20'>Get Started</button> */}
         </nav>
         {menu ? (
           <HiMenu
@@ -206,13 +210,13 @@ const Header = (props) => {
                 <FaSun size={18} className="inline" /> <span>Dark Mode</span>
               </div>
             )) || (
-              <div
-                className="p-2 rounded hover:bg-slate-500/20 flex items-center gap-4"
-                onClick={toggleTheme}
-              >
-                <FaMoon size={16} className="inline" /> <span>Light Mode</span>
-              </div>
-            )}
+                <div
+                  className="p-2 rounded hover:bg-slate-500/20 flex items-center gap-4"
+                  onClick={toggleTheme}
+                >
+                  <FaMoon size={16} className="inline" /> <span>Light Mode</span>
+                </div>
+              )}
             <a
               className="p-2 rounded hover:bg-slate-500/20 flex items-center gap-4"
               href="https://github.com/Manikanta528/the-profolio"
@@ -231,7 +235,6 @@ const Header = (props) => {
                 </button>
               </div>
             )}
-            {/* <button className='border-textPrimary border-2 rounded px-2 text-sm py-1 dark:border-textPrimaryDark hover:bg-slate-500/20'>Get Started</button> */}
           </nav>
         </div>
       )}
