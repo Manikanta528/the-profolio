@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect , useState } from 'react';
 
 import {  databases , storage } from '../../utils';
 
 import { useLocation , useNavigate } from 'react-router-dom';
 
 import { BiArrowBack , BiLinkAlt , BiFolder} from 'react-icons/bi';
+import { BsTwitter , BsGithub} from 'react-icons/bs';
 import {AiOutlineDelete} from 'react-icons/ai';
 
 
@@ -33,6 +34,21 @@ function ProjectPage() {
       storage.deleteFile(import.meta.env.VITE_USER_PROJECTS_BUCKET_ID,data.$id);
       navigate("/your-work");
     }
+
+    const [userDetails, setUserDetails] = useState();
+    useEffect(() => {
+      const userData = databases.getDocument(import.meta.env.VITE_DATABASE_ID,import.meta.env.VITE_USER_DETAILS_COLLECTION_ID,data.userId);
+      
+      userData.then(
+        function (response) {
+          setUserDetails(response);
+          console.log(userDetails);
+        },
+        function (error) {
+          console.log(error);
+        }
+      )
+    },[]);
     
   return (
     <div className='bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 max-h-fit min-h-screen'>
@@ -96,6 +112,27 @@ function ProjectPage() {
         <h3 className='text-lg font-bold mb-4'>📝 Description</h3>
         <pre className='text-textSecondary dark:text-textSecondaryDark pb-12 whitespace-pre-wrap'>{data.description}</pre>
       </div>
+      <hr />
+      {
+        location.state?.discoverFlag && <div >
+        <h1 className='text-lg font-bold my-4'>👨‍💻 Posted by</h1>
+        <div className='flex justify-between flex-wrap'>
+          <h1 className=" text-base font-semibold mb-4 text-textPrimary dark:text-textPrimaryDark">
+            {userDetails?.name}
+          </h1>
+          <div className='flex  items-center pb-4 gap-4'>
+                  <div className="flex items-center gap-4 text-xs lg:text-base">
+                    <a href={"http://www.twitter.com/" + userDetails?.twitter} target='_blank' rel='noreferrer'> <BsTwitter size={18} /></a>
+                  </div>
+                  <div className="flex items-center gap-4  text-xs lg:text-base">
+                    
+                    <a href={"http://www.github.com/" + userDetails?.github} target='_blank' rel='noreferrer'><BsGithub size={18} /></a>
+                  </div>
+          </div>
+        </div>
+        </div>
+      }
+      
     </div>
   )
 }

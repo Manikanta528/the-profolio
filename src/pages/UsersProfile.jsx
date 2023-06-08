@@ -106,13 +106,13 @@ function UsersProfile() {
               {twitter && (
                 <div className="flex items-center gap-4 mb-2 text-xs lg:text-base">
                   <BsTwitter size={18} />
-                  <a href={"http://www.twitter.com/" + twitter}>{twitter}</a>
+                  <a href={"http://www.twitter.com/" + twitter} target='_blank' rel='noreferrer'>{twitter}</a>
                 </div>
               )}
               {github && (
                 <div className="flex items-center gap-4 text-xs lg:text-base pb-4">
                   <BsGithub size={18} />
-                  <a href={"http://www.github.com/" + github}>{github}</a>
+                  <a href={"http://www.github.com/" + github} target='_blank' rel='noreferrer'>{github}</a>
                 </div>
               )}
                {projects.length > 0 && <><h1 className="font-bold text-xl md:text-2xl py-4 text-textPrimary dark:text-textPrimaryDark"> Projects</h1>
