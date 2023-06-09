@@ -45,7 +45,7 @@ function LandingPage(props) {
             <p className='text-textSecondary dark:text-textSecondaryDark pt-8 '>Start your developer journey with us and Sign in to discover a world of inspiration and connect with a network of talented individuals in your field.</p>
           </div>
           <div data-aos="flip-right">
-            <img src="./public/hiw-1.svg" alt="hiw1" className='shadow-xl' />
+            <img src="../hiw-1.svg" alt="hiw1" className='shadow-xl' />
           </div>
         </div>
         <div className='flex flex-row-reverse flex-wrap gap-4 justify-center 2xl:justify-between pb-24'>
@@ -54,7 +54,7 @@ function LandingPage(props) {
             <p className='text-textSecondary dark:text-textSecondaryDark pt-8 '>Build your online presence with a personalized profile. Fill in your name, bio, skills, and socials to let others discover your amazing talents.</p>
           </div>
           <div data-aos="flip-left">
-            <img src="./public/hiw-2.svg" alt="hiw1" className='shadow-xl' />
+            <img src="../hiw-2.svg" alt="hiw1" className='shadow-xl' />
           </div>
         </div>
         <div className='flex flex-wrap gap-4 justify-center 2xl:justify-between pb-24'>
@@ -63,7 +63,7 @@ function LandingPage(props) {
             <p className='text-textSecondary dark:text-textSecondaryDark pt-8 '>Craft a comprehensive profile with a project showcase. Add project details, descriptions, skills utilized, and links to live previews and GitHub repositories to captivate your audience.</p>
           </div>
           <div data-aos="flip-right">
-            <img src="./public/hiw-3.svg" alt="hiw1" className='shadow-xl'/>
+            <img src="../hiw-3.svg" alt="hiw1" className='shadow-xl'/>
           </div>
         </div>
         <div className='flex flex-row-reverse flex-wrap gap-4 justify-center 2xl:justify-between pb-24'>
@@ -72,16 +72,16 @@ function LandingPage(props) {
             <p className='text-textSecondary dark:text-textSecondaryDark pt-8 '>Connect with people who matter. Search for users by name and discover individuals with shared interests, skills, and expertise.<a href={import.meta.env.VITE_URL+"/find"} className='text-primary underline cursor-pointer'> Find Now ↗</a></p>
           </div>
           <div data-aos="flip-left">
-            <img src="./public/hiw-4.svg" alt="hiw1" className='shadow-xl' />
+            <img src="../hiw-4.svg" alt="hiw1" className='shadow-xl' />
           </div>
         </div>
         <div className='flex flex-wrap gap-4 justify-center 2xl:justify-between pb-24'>
           <div className='pb-12  w-auto sm:w-[500px] ' data-aos="fade-up">
-            <h3 className='text-textPrimary dark:text-textPrimaryDark font-semibold'>3. Discover Projects </h3>
+            <h3 className='text-textPrimary dark:text-textPrimaryDark font-semibold'>5. Discover Projects </h3>
             <p className='text-textSecondary dark:text-textSecondaryDark pt-8 '>Find projects that match your interests. Search by project names and technologies to uncover captivating works that align with your passions and ignite your curiosity. <a href={import.meta.env.VITE_URL+"/discover"} className='text-primary underline cursor-pointer'>Discover Now ↗</a></p>
           </div>
           <div data-aos="flip-right">
-            <img src="./public/hiw-5.svg" alt="hiw1" className='shadow-xl'/>
+            <img src="../hiw-5.svg" alt="hiw1" className='shadow-xl'/>
           </div>
         </div>
         <footer className='text-textSecondary dark:text-textSecondaryDark pb-12 flex flex-col justify-center items-center gap-4'>
