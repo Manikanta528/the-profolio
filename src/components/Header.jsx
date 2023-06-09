@@ -29,7 +29,7 @@ const Header = (props) => {
 
   return (
     <>
-      <header className="h-20 sticky z-50 top-0 select-none border-0 flex items-center justify-between text-textPrimary dark:text-textPrimaryDark backdrop-blur ">
+      <header className="h-20 sticky z-50 top-0 select-none border-0 flex items-center justify-between text-textPrimary dark:text-textPrimaryDark bg-background dark:bg-backgroundDark shadow dark:shadow-background/5 ">
         <h2 className="text-lg font-bold pl-6 md:pl-16 hidden sm:block">
           The Profolio
         </h2>

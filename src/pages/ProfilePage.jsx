@@ -37,7 +37,7 @@ function ProfilePage(props) {
         setUser(res);
       })
       .catch((err) => {
-        navigate("/");
+        navigate("/login");
         console.log(err);
       });
   };
