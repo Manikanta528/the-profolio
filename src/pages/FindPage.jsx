@@ -55,10 +55,10 @@ function FindPage(props) {
     <div className=" bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark">
       <Header toggleTheme={toggleTheme} theme={theme} flagSignIn={false} user={true} currentPage={"Find"} />
       <div className=" px-6 md:px-16 min-h-screen max-h-fit" >
-        <div className='flex justify-center h-24 bg-gif rounded bg-auto'>
+        <div className='flex justify-center h-24 bg-gif rounded bg-auto mt-12'>
           <form className='relative  flex items-center bg-background dark:bg-backgroundDark p-4  rounded-md shadow-2xl dark:shadow-background/10 top-16 h-fit' onSubmit={handleSearch}>
             <BiSearchAlt className=" mr-4 hidden sm:inline-block" />
-            <input type="text" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} className='bg-background dark:bg-backgroundDark focus:outline-0 w-[100px] sm:w-[200px] md:w-[300px] lg:w-[400px] ' />
+            <input type="text" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} className='bg-background dark:bg-backgroundDark focus:outline-0 w-[200px] md:w-[300px] lg:w-[400px] ' />
             <input type="submit" value="Search" className=' px-2 py-1 text-sm  md:text-base' />
           </form>
         </div>
