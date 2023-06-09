@@ -1,9 +1,10 @@
 # The Profolio
+
 Open-source website for new developers.
 
 This repository contains the source code for The Profolio, a personal portfolio website built using React, Appwrite, Vite, AOS, and Tailwind CSS.
 
-## Tech Stack
+## 💻 Tech Stack
 
 The code base of this repo uses
 
@@ -11,7 +12,7 @@ The code base of this repo uses
 - [Appwrite](https://appwrite.io/)
 - [TailwindCSS](https://tailwindcss.com/)
 
-## Installation
+## 🛠️ Installation
 Fork and Clone<br>
 To get started, you need to fork and clone this repository. Follow the steps below:
 
@@ -55,6 +56,16 @@ To get started, you need to fork and clone this repository. Follow the steps bel
     npm run dev
     
    ```
+## 🔐 Authentication SetUp
+- [GitHub OAuth](https://dev.to/hackmamba/how-to-add-github-authentication-to-a-nextjs-application-1nfi)
+- [Google OAuth](https://www.youtube.com/watch?v=KYrOoyvycAM)
+
+## Get Started 
+- [Learn React](https://react.dev/learn) 
+- [Learn Appwrite](https://appwrite.io/docs/getting-started-for-web) 
+- [Learn Tailwind CSS](https://tailwindcss.com/docs/installation) 
+
+
 
 ## 🔖 Contributing
 Contributions to The Profolio are welcome! If you find any issues or want to add new features, feel free to submit a pull request. [Contributing](./CONTRIBUTING.md)
