@@ -24,6 +24,9 @@ const Header = (props) => {
   // to toggle the menu
   const [menu, setMenu] = useState(true);
   const handleMenu = () => {
+    if(menu){
+      window.scrollTo(0, 0);
+    }
     setMenu(!menu);
   };
 
@@ -151,9 +154,9 @@ const Header = (props) => {
         )}
       </header>
       {!menu && (
-        <div className="block z-20 md:hidden w-screen h-auto p-6 pt-0 text-textPrimary  dark:text-textPrimaryDark backdrop-blur">
+        <div className="block z-20 md:hidden w-screen h-auto p-6 pt-0 text-textPrimary  dark:text-textPrimaryDark bg-background dark:bg-backgroundDark border-b-2">
           {user && (
-            <nav className="flex flex-col py-2 text-textSecondary dark:text-textSecondaryDark gap-4 cursor-pointer">
+            <nav className="flex flex-col py-2 text-textSecondary dark:text-textSecondaryDark gap-4 cursor-pointer mb-2">
               <h4
                 onClick={() => navigation("Discover")}
                 className={
@@ -200,8 +203,8 @@ const Header = (props) => {
               </h4>
             </nav>
           )}
-          <hr className="my-2" />
-          <nav className="flex flex-col gap-4 text-textPrimary  dark:text-textPrimaryDark">
+          { user && <hr className="my-2" />}
+          <nav className="flex flex-col gap-4 text-textPrimary  dark:text-textPrimaryDark pt-2 ">
             {(theme && (
               <div
                 className="p-2 rounded hover:bg-slate-500/20 flex items-center gap-4"
