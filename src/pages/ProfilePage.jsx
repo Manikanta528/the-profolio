@@ -237,8 +237,6 @@ function ProfilePage(props) {
 
     if (bio.trim() === '') {
       newErrors.biography = 'Biography is required';
-    } else if (bio.length < 512) {
-      newErrors.biography = 'Biography must be greater than 512 characters';
     } else if (bio.length > 1024) {
       newErrors.biography = 'Biography must be less than 1024 characters';
     }
@@ -406,6 +404,7 @@ function ProfilePage(props) {
                     maxLength="40"
 
                   />
+                  {errors.name && <p className="text-red-500 text-[10px] pl-2">{errors.name}</p>}
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">40 characters allowed.</sup>
 
@@ -421,6 +420,7 @@ function ProfilePage(props) {
                     onChange={(e) => handleFormChange("title", e.target.value)}
 
                   />
+                  {errors.title && <p className="text-red-500 text-[10px] pl-2">{errors.title}</p>}
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">40 characters allowed.</sup>
 
@@ -434,6 +434,7 @@ function ProfilePage(props) {
                     onChange={(e) => handleFormChange("bio", e.target.value)}
 
                   />
+                  { errors.bio && <p className="text-red-500 text-[10px] pl-2">{errors.bio}</p>}
                 </div>
                 <sup className=" text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">1024 characters allowed.</sup>
 
@@ -448,6 +449,7 @@ function ProfilePage(props) {
                     value={profile.twitter}
                     onChange={(e) => handleFormChange("twitter", e.target.value)}
                   />
+                  {errors.twitter && <p className="text-red-500 text-[10px] pl-2">{errors.twitter}</p>}
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">15 characters allowed.</sup>
 
@@ -462,6 +464,7 @@ function ProfilePage(props) {
                     value={profile.github}
                     onChange={(e) => handleFormChange("github", e.target.value)}
                   />
+                  {errors.github && <p className="text-red-500 text-[10px] pl-2">{errors.github}</p>}
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">39 characters allowed.</sup>
                 <div className="flex flex-col gap-4 mt-4">
@@ -475,6 +478,7 @@ function ProfilePage(props) {
                     onKeyDown={handleSkills}
                     onChange={onChangeSkills}
                   />
+                  {errors.skills && <p className="text-red-500 text-[10px] pl-2">{errors.skills}</p>}
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">add minimum 3 skills.</sup>
                 <div className="flex gap-2 flex-wrap mb-4">
@@ -500,15 +504,7 @@ function ProfilePage(props) {
                   />
                 </div>
                 <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">file upload might take 2-3 hrs to reflect in profile.</sup>
-                {
-                  Object.keys(errors).length > 0 && (
-                    <div className="text-red-500 text-xs">
-                      {Object.values(errors).map((value) => (
-                        <li key={value}>{value}</li>
-                      ))}
-                    </div>
-                  )
-                }
+                
                 <br />
                 <button type="submit" className="text-textPrimaryDark my-4  border-none  font-bold px-6 py-3  rounded bg-primary hover:text-textPrimary hover:bg-primary/90 hover:border-primary/50 text-xs md:text-base hover:shadow-lg">
                   Save Changes
@@ -601,7 +597,7 @@ function ProfilePage(props) {
             </div>
           )}
           {
-            profile.name == "" && (
+            profile.name == "" && !profileEdit && (
               <div className="flex items-center justify-center gap-4 mt-20 h-[70vh]">
                 <svg aria-hidden="true" className=" inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />

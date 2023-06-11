@@ -253,6 +253,7 @@ function YourWorkPage(props) {
                       maxLength="80"
 
                     />
+                    {errors.projectName && <p className="text-red-500 text-[10px] pl-2">{errors.projectName}</p>}
                   </div>
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">80 characters allowed.</sup>
 
@@ -267,6 +268,7 @@ function YourWorkPage(props) {
                       onChange={(e) => setDescription(e.target.value)}
 
                     />
+                    {errors.description && <p className="text-red-500 text-[10px] pl-2">{errors.description}</p>}
                   </div>
                   <sup className=" text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">2024 characters allowed.</sup>
 
@@ -281,6 +283,7 @@ function YourWorkPage(props) {
                       value={livePreview}
                       onChange={(e) => setLivePreview(e.target.value)}
                     />
+                    {errors.livePreview && <p className="text-red-500 text-[10px] pl-2">{errors.livePreview}</p>}
                   </div>
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">100 characters allowed.</sup>
 
@@ -295,6 +298,7 @@ function YourWorkPage(props) {
                       value={repoLink}
                       onChange={(e) => setRepoLink(e.target.value)}
                     />
+                    {errors.repoLink && <p className="text-red-500 text-[10px] pl-2">{errors.repoLink}</p>}
                   </div>
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">39 characters allowed.</sup>
                   <div className="flex flex-col gap-4 mt-4">
@@ -308,6 +312,7 @@ function YourWorkPage(props) {
                       onKeyDown={handleSkills}
                       onChange={onChangeSkills}
                     />
+                    {errors.usedTechnology && <p className="text-red-500 text-[10px] pl-2">{errors.usedTechnology}</p>}
                   </div>
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">add minimum 3 skills.</sup>
                   <div className="flex gap-2 flex-wrap mb-4">
@@ -328,10 +333,11 @@ function YourWorkPage(props) {
                       type="file"
                       className="border-2 flex-grow rounded py-1 px-2 hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-primary/50 focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary dark:bg-backgroundDark/50"
                       onChange={(e) => {
-                        console.log(e.target.files);
+                        //console.log(e.target.files);
                         setProjectImg(e.target.files[0]);
                       }}
                     />
+                    {errors.projectImg && <p className="text-red-500 text-[10px] pl-2">{errors.projectImg}</p>}
                   </div>
                   <sup className="mb-4 text-[10px] pl-2 text-textSecondary dark:text-textSecondaryDark">file upload might take 2-3 hrs to reflect in profile.</sup>
 
@@ -358,7 +364,7 @@ function YourWorkPage(props) {
                 {projects.length === 0 ? <marquee className=" text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
                 </marquee> : <div className="mb-6 w-1 h-1"> </div>
                 }
-                <div className="flex flex-wrap gap-8 xl:gap-12 justify-center lg:justify-start ">
+                <div className="flex flex-wrap gap-8 xl:gap-12 justify-center lg:justify-start pb-24">
                   <button onClick={handleAddWork} className="border-2 bg-background dark:bg-backgroundDark border-textPrimary text-textPrimary dark:text-textPrimaryDark dark:border-textPrimaryDark border-dotted text-base sm:text-lg w-full h-64 sm:w-96  rounded-md flex flex-col justify-center items-center  hover:shadow-2xl">
                     <AiOutlinePlusCircle className="text-4xl mt-12 hover:animate-spin text-textPrimary dark:text-textPrimaryDark  " />
                     <h3 className="pt-6">Add Your Work</h3>
