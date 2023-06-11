@@ -75,7 +75,7 @@ function DiscoverPage(props) {
           <form className='relative  flex items-center bg-background dark:bg-backgroundDark p-4  rounded-md shadow-2xl dark:shadow-background/10 top-16 h-fit' onSubmit={handleSearch}>
             <BiSearchAlt className=" mr-4 hidden sm:inline-block" />
             <input type="text" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} className='bg-background dark:bg-backgroundDark focus:outline-0 w-[200px] md:w-[300px] lg:w-[400px] ' />
-            <input type="submit" value="Search" className=' px-2 py-1 text-sm  md:text-base' />
+            <input type="submit" value="Search" className=' px-2 py-1 text-sm  md:text-base border-2 border-slate-100 dark:border-slate-500 hover:border-primary/50 hover:bg-primary/50 active:bg-primary rounded-md' />
           </form>
 
         </div>
