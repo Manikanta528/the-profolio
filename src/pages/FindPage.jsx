@@ -62,7 +62,7 @@ function FindPage(props) {
             <input type="submit" value="Search" className=' px-2 py-1 text-sm  md:text-base border-2 border-slate-100 dark:border-slate-500 hover:border-primary/50 hover:bg-primary/50 active:bg-primary rounded-md'/>
           </form>
         </div>
-        <div className="flex flex-wrap w-full h-fit mt-24 gap-8 justify-center md:justify-start ">
+        <div className="flex flex-wrap w-full h-fit mt-24 gap-8 justify-center md:justify-start pb-24">
           {
             users.length > 0 ? users.map((user, i) => (<ProfileCard key={i} data={user} />)) :
               <h1 className="text-center">No Users Found </h1>
