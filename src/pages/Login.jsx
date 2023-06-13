@@ -38,7 +38,8 @@ function Login(props) {
                     <p className="text-textSecondary dark:text-textSecondaryDark text-sm md:text-base text-center mt-4">Get Sign in to your account</p>
                     <button onClick={handleGoogleAuth} className='flex gap-2 items-center border-2 px-4 py-2 mt-8 rounded text-textPrimary border-textPrimary dark:border-backgroundDark dark:text-textPrimaryDark hover:bg-backgroundDark hover:text-textPrimaryDark active:bg-primary'> <FcGoogle className='inline' /> <span className='hidden md:inline '>Sign in with</span> <span className=''> Google</span></button>
                     <button onClick={handleGithubAuth} className='flex gap-2 items-center border-2 px-4 py-2 mt-8 rounded text-textPrimary border-textPrimary dark:border-backgroundDark dark:text-textPrimaryDark hover:bg-backgroundDark hover:text-textPrimaryDark active:bg-primary'> <AiFillGithub className='inline' /> <span className='hidden md:inline '>Sign in with</span> <span className=''> Github</span></button>
-                    <div className="my-8 text-textPrimary dark:text-textPrimaryDark"> Know more about us  <a href="/" className="text-primary inline">Click here</a></div>
+                    <div className="mt-8 text-textSecondary text-xs dark:text-textSecondaryDark"> Know more about us  <a href="/" className="text-primary inline">Click here</a></div>
+                    <div className="mt-4 text-textSecondary text-xs dark:text-textSecondaryDark"> By joining, you agree to our  <a href="https://www.termsfeed.com/live/ec5d91fa-df92-45d9-b6d0-82c3f9fa3b17" className="text-primary inline">Privacy Policy</a></div>
                 </div>
             </div>
         </div>
