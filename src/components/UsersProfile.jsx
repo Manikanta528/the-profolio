@@ -49,7 +49,7 @@ function UsersProfile() {
 
   return (
     <div>
-      <div className="bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 max-h-fit min-h-screen">
+      <div className="bg-background dark:bg-backgroundDark text-textPrimary dark:text-textPrimaryDark px-6 md:px-16 pb-12 max-h-fit min-h-screen">
         <button
           onClick={handleBack}
           className="py-12  flex flex-wrap items-center gap-4 hover:text-textSecondary font-medium"

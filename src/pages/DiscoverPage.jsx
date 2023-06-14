@@ -90,7 +90,7 @@ function DiscoverPage(props) {
         </div>
         <div className="flex flex-wrap w-full h-fit mt-24 pb-12 gap-8 justify-center md:justify-start ">
           {
-            usersProjects.length > 0 ? usersProjects.map((project, i) => (<ProjectCard key={i} data={project} discoverFlag={true} />)) :(
+            usersProjects.length > 0 ? usersProjects.map((project, i) => (<ProjectCard key={i} data={project} discoverFlag={true}  />)) :(
               loader ? <h1 className="text-center">No Projects Found </h1>: <>
                 <div className="flex items-center justify-center gap-4 mt-20 w-full">
                   <svg aria-hidden="true" className=" inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
