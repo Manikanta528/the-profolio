@@ -38,6 +38,9 @@ function YourWorkPage(props) {
   // to store the errors
   const [errors, setErrors] = useState({});
 
+  // to show the loader
+  const [loader, setLoader] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -208,6 +211,9 @@ function YourWorkPage(props) {
             );
           }
         })
+        setTimeout(() => {
+          setLoader(true);
+        }, 2000);
       },
       function (error) {
         navigate("/login");
@@ -361,7 +367,7 @@ function YourWorkPage(props) {
             <div className="min-h-screen bg-pattern dark:bg-pattern-dark  bg-32">
               <div className="mx-6 md:mx-16 " >
                 <h1 className="pt-10 pb-10  font-bold">Your Work</h1>
-                {projects.length === 0 ? <marquee className=" text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
+                {projects.length === 0 && loader ? <marquee className=" text-textSecondary dark:text-textSecondaryDark text-sm" >You have not added any projects to your profile. Please add your projects now.
                 </marquee> : <div className="mb-6 w-1 h-1"> </div>
                 }
                 <div className="flex flex-wrap gap-8 xl:gap-12 justify-center lg:justify-start pb-24">
